@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dictionary1</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="details">Details:</string>
+    <string name="speech_prompt">speak</string>
+    <string name="microphone">Microphone</string>
+
+</resources>
