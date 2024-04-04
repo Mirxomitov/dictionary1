@@ -48,7 +48,7 @@
         android:layout_marginTop="8dp"
         android:letterSpacing="0.04"
         android:textColor="#8F8F8F"
-        android:textSize="8sp"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="@id/txtWord"
         app:layout_constraintTop_toBottomOf="@id/txtWord"
         tools:text="Test" />

@@ -1,9 +1,11 @@
+import org.jetbrains.kotlin.ir.backend.js.compile
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id ("androidx.navigation.safeargs.kotlin")
-    id ("kotlin-parcelize")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -66,5 +68,11 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
 
     // navigation drawer
-    implementation ("com.google.android.material:material:latest_version")
+    implementation("com.google.android.material:material:latest_version")
+
+    // fast recycling
+//    implementation("com.android.support:design:26.0.1")
+//    implementation("com.android.support:recyclerview-v7:26.0.1")
+//    implementation("com.github.Trendyol:BubbleScrollBar:0.1")
+    implementation ("io.github.l4digital:fastscroll:2.1.0")
 }

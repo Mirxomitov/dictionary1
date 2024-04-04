@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.l4digital.fastscroll.FastScroller
 import uz.gita.dictionary1.data.MyMapper.toData
 import uz.gita.dictionary1.data.model.WordData
 import uz.gita.dictionary1.data.sources.entity.WordEntity
@@ -13,10 +14,13 @@ import uz.gita.dictionary1.databinding.ItemDictionaryBinding
 import uz.gita.dictionary1.uitls.createSpannable
 import uz.gita.dictionary1.uitls.wordEntityByPos
 
+@Suppress("UNREACHABLE_CODE")
 @SuppressLint("Range", "NotifyDataSetChanged", "SetTextI18n")
-class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
+class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>(), FastScroller.SectionIndexer {
     private var cursor: Cursor? = null
     private var query: String? = null
+    public fun getCursor() = cursor
+
     // id isFavouriteActive?
     private var onFavouriteClickListener: ((Long, Long) -> Unit)? = null
     private var onItemClickListener: ((WordEntity) -> Unit)? = null
@@ -135,5 +139,13 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
     fun setOnItemClickListener(block: (WordEntity) -> Unit) {
         onItemClickListener = block
+    }
+
+    override fun getSectionText(position: Int): CharSequence {
+        return if (enToUz) {
+            cursor?.wordEntityByPos(position)?.english ?: ""
+        } else {
+            cursor?.wordEntityByPos(position)?.uzbek ?: ""
+        }
     }
 }

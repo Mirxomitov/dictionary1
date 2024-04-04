@@ -45,8 +45,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|end"
-                android:padding="10dp"
                 android:background="@drawable/bg_button_change"
+                android:padding="10dp"
                 android:src="@drawable/ic_change_language"
                 app:tint="@color/white" />
 
@@ -76,19 +76,21 @@
             app:searchIcon="@drawable/ic_search"
             app:showDividers="middle" />
     </LinearLayout>
-
     <!--    recycler view-->
-    <androidx.recyclerview.widget.RecyclerView
+    <com.l4digital.fastscroll.FastScrollRecyclerView
         android:id="@+id/wordList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
+        app:bubbleColor="@color/blue"
+        app:bubbleTextColor="#ffffff"
+        app:bubbleTextSize="14sp"
+        app:handleColor="#999999"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear"
         tools:listitem="@layout/item_dictionary" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ic_recorder"
         android:layout_width="wrap_content"

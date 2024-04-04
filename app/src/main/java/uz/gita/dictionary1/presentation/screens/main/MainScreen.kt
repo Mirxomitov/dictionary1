@@ -44,10 +44,10 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
         initAdapter()
         searchViewSettings()
         drawerBinding.inner.btnChangeLanguage.setOnClickListener {
-            //drawerBinding.inner.wordList.scrollToPosition(0)
             if (System.currentTimeMillis() - time < 1000) return@setOnClickListener
-            drawerBinding.inner.btnChangeLanguage.animate().rotationBy(90f)
-                .setDuration(500)
+
+            drawerBinding.inner.wordList.scrollToPosition(0)
+            drawerBinding.inner.btnChangeLanguage.animate().rotationBy(90f).setDuration(500)
 
             isEngToUz = !isEngToUz
             presenter.loadWords(query = currentQuery ?: "", isEngToUz)
@@ -160,6 +160,7 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                drawerBinding.inner.wordList.scrollToPosition(0)
                 currentQuery = newText
                 if (currentQuery == null) presenter.loadWords()
                 else presenter.loadWords(currentQuery!!, isEngToUz)
