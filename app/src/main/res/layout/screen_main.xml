@@ -14,15 +14,15 @@
         android:background="@color/blue"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/btn_menu"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_circle_item"
                 android:clickable="true"
                 android:focusable="true"
@@ -32,25 +32,37 @@
                 app:tint="#FFF" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/leftLanguageTv"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Uzbek-English dictionary"
+                android:gravity="center"
+                android:text="English"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btnChangeLanguage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical|end"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@drawable/bg_button_change"
-                android:padding="10dp"
-                android:src="@drawable/ic_change_language"
+                android:padding="4dp"
+                android:src="@drawable/ic_change"
                 app:tint="@color/white" />
 
-        </FrameLayout>
+            <TextView
+                android:id="@+id/rightLanguageTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="Uzbek"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <!--    search view -->
     <LinearLayout
@@ -91,12 +103,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear"
         tools:listitem="@layout/item_dictionary" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ic_recorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="16dp"
+        android:background="?android:selectableItemBackgroundBorderless"
         android:backgroundTint="@color/blue"
         android:contentDescription="@string/microphone"
         android:src="@drawable/ic_microphone"

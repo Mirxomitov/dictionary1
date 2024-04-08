@@ -7,8 +7,11 @@ import android.database.Cursor
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import android.widget.ViewSwitcher
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
@@ -21,7 +24,6 @@ import uz.gita.dictionary1.databinding.ScreenMainNavBinding
 import uz.gita.dictionary1.presentation.adapters.WordAdapter
 import uz.gita.dictionary1.presentation.dialogs.details.DetailsDialog
 
-@Deprecated("Deprecated in Java")
 class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
 
     private val drawerBinding by viewBinding(ScreenMainNavBinding::bind)
@@ -31,7 +33,7 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
     private var detailsDialog: DetailsDialog? = null
     private var isEngToUz = true
     private val REQ_CODE_SPEECH_INPUT = 100
-    var time = System.currentTimeMillis()
+    private var time = System.currentTimeMillis()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,18 +42,23 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
             promptSpeechInput()
         }
 
+        drawerBinding.navigationView
+
         initDrawer()
         initAdapter()
         searchViewSettings()
         drawerBinding.inner.btnChangeLanguage.setOnClickListener {
             if (System.currentTimeMillis() - time < 1000) return@setOnClickListener
 
-            drawerBinding.inner.wordList.scrollToPosition(0)
-            drawerBinding.inner.btnChangeLanguage.animate().rotationBy(90f).setDuration(500)
-
+            drawerBinding.inner.btnChangeLanguage.animate().rotationBy(180f).setDuration(1000)
             isEngToUz = !isEngToUz
+
+            drawerBinding.inner.leftLanguageTv.text = if (isEngToUz) "English" else "O'zbek"
+            drawerBinding.inner.rightLanguageTv.text = if (!isEngToUz) "Ingliz" else "Uzbek"
+
             presenter.loadWords(query = currentQuery ?: "", isEngToUz)
             adapter?.changeLanguage(isEngToUz)
+            adapter?.setCursor(null, null)
 
             time = System.currentTimeMillis()
         }
@@ -87,6 +94,7 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
@@ -124,6 +132,15 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
                 R.id.user_favourites -> {
                     val direction =
                         MainScreenDirections.actionMainScreenToFavouritesScreen()
+                    findNavController().navigate(direction)
+                    drawerBinding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.rateUs -> {}
+
+                R.id.aboutUs -> {
+                    val direction =
+                        MainScreenDirections.actionMainScreenToInfoScreen()
                     findNavController().navigate(direction)
                     drawerBinding.drawerLayout.closeDrawer(GravityCompat.START)
                 }

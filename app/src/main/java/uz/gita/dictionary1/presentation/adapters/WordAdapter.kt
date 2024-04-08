@@ -14,12 +14,11 @@ import uz.gita.dictionary1.databinding.ItemDictionaryBinding
 import uz.gita.dictionary1.uitls.createSpannable
 import uz.gita.dictionary1.uitls.wordEntityByPos
 
-@Suppress("UNREACHABLE_CODE")
 @SuppressLint("Range", "NotifyDataSetChanged", "SetTextI18n")
 class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>(), FastScroller.SectionIndexer {
     private var cursor: Cursor? = null
     private var query: String? = null
-    public fun getCursor() = cursor
+    private var time = System.currentTimeMillis()
 
     // id isFavouriteActive?
     private var onFavouriteClickListener: ((Long, Long) -> Unit)? = null
@@ -92,11 +91,14 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>(), FastScro
 
             binding.root.setOnClickListener {
                 cursor?.let {
-                    onItemClickListener?.invoke(
-                        it.wordEntityByPos(
-                            absoluteAdapterPosition
+                    if (System.currentTimeMillis() - time > 1000) {
+                        onItemClickListener?.invoke(
+                            it.wordEntityByPos(
+                                absoluteAdapterPosition
+                            )
                         )
-                    )
+                        time = System.currentTimeMillis()
+                    }
                 }
             }
         }
@@ -120,7 +122,7 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>(), FastScro
         }
     }
 
-    fun setCursor(cursor: Cursor, query: String? = null) {
+    fun setCursor(cursor: Cursor?, query: String? = null) {
         this.cursor?.close()
         favouritesMap.clear()
         this.cursor = cursor
