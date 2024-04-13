@@ -6,5 +6,7 @@
     <string name="microphone">Microphone</string>
     <string name="info">\t Ushbu dastur English-Uzbek va Uzbek-English lug\'at hisoblanadi. Unda siz ko\'p ishlatadigan yoki elsab qolishingiz kerak bo\'lgan so\'zlarni alohida saqlashingiz mumkin. Qo\'shimcha qulayliklar o\'rnida O\'zbek va Ingliz tilida ovozli qidiruvdan foydalana olasiz va so\'zlarni ingliz tilida eshitishingiz mumkin. Ushbu dastur GITA Dasturchilar Akademiyasi o\'quvchisi tomonidan tayyorlangan. Kamchiliklar yoki takliflar bo\'lsa biz bilan bog\'laning</string>
     <string name="callUs">Biz bilan bog\'lanish</string>
+    <string name="english">English</string>
+    <string name="uzbek">Uzbek</string>
 
 </resources>

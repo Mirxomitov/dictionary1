@@ -1,6 +1,7 @@
 package uz.gita.dictionary1.domain
 
 import android.database.Cursor
+import uz.gita.dictionary1.data.model.WordData
 import uz.gita.dictionary1.data.sources.entity.WordEntity
 
 interface AppRepository {
@@ -11,4 +12,5 @@ interface AppRepository {
     fun getUzbekWordsByQuery(query: String): Cursor
     fun getAllFavouriteWords(): Cursor
     fun removeFromFavourite(id: Long)
+    fun addWord(wordEntity: WordEntity)
 }

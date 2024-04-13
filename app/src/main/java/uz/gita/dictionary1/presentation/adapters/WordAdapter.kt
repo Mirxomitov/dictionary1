@@ -143,11 +143,29 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>(), FastScro
         onItemClickListener = block
     }
 
+//    override fun getSectionText(position: Int): CharSequence {
+//        return if (enToUz) {
+//            cursor?.wordEntityByPos(position)?.english ?: ""
+//        } else {
+//            cursor?.wordEntityByPos(position)?.uzbek ?: ""
+//        }
+//    }
+
     override fun getSectionText(position: Int): CharSequence {
-        return if (enToUz) {
-            cursor?.wordEntityByPos(position)?.english ?: ""
-        } else {
-            cursor?.wordEntityByPos(position)?.uzbek ?: ""
+        cursor?.moveToPosition(position)
+        cursor?.let {
+            try {
+                val eng = it.getString(it.getColumnIndexOrThrow("english"))
+                val uz = it.getString(it.getColumnIndexOrThrow("uzbek"))
+                if (enToUz) {
+                    return eng[0].toString()
+                } else {
+                    return uz[0].toString()
+                }
+            } catch (e: Exception) {
+                return ""
+            }
         }
+        return "a"
     }
 }

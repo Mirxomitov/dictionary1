@@ -2,6 +2,7 @@ package uz.gita.dictionary1.domain
 
 import android.database.Cursor
 import uz.gita.dictionary1.data.sources.MyDatabase
+import uz.gita.dictionary1.data.sources.entity.WordEntity
 
 class AppRepositoryImpl : AppRepository {
 
@@ -32,4 +33,5 @@ class AppRepositoryImpl : AppRepository {
 
     override fun getAllFavouriteWords(): Cursor = wordDao.getAllFavouriteWords()
     override fun removeFromFavourite(id: Long) = wordDao.removeFromFavourite(id)
+    override fun addWord(wordEntity: WordEntity) = wordDao.addWord(wordEntity)
 }

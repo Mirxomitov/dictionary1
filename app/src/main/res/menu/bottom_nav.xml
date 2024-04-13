@@ -15,6 +15,12 @@
         app:tint="@color/blue" />
 
     <item
+        android:id="@+id/addWord"
+        android:icon="@drawable/ic_add"
+        android:title="Add word"
+        app:tint="@color/blue" />
+
+    <item
         android:id="@+id/rateUs"
         android:icon="@drawable/icon_like"
         android:title="Rate us"
@@ -25,4 +31,5 @@
         android:icon="@drawable/about_us"
         android:title="About us"
         app:tint="@color/blue" />
+
 </menu>

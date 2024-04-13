@@ -9,13 +9,28 @@
         android:id="@+id/mainScreen"
         android:name="uz.gita.dictionary1.presentation.screens.main.MainScreen"
         android:label="screen_main"
-        tools:layout="@layout/screen_main" >
+        tools:layout="@layout/screen_main">
         <action
             android:id="@+id/action_mainScreen_to_favouritesScreen"
-            app:destination="@id/favouritesScreen" />
+            app:destination="@id/favouritesScreen"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_mainScreen_to_infoScreen"
-            app:destination="@id/infoScreen" />
+            app:destination="@id/infoScreen"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_mainScreen_to_addScreen"
+            app:destination="@id/addScreen"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/mySplashScreen"
@@ -39,6 +54,10 @@
         android:id="@+id/infoScreen"
         android:name="uz.gita.dictionary1.presentation.screens.info.InfoScreen"
         android:label="InfoScreen" />
+    <fragment
+        android:id="@+id/addScreen"
+        android:name="uz.gita.dictionary1.presentation.screens.add.AddScreen"
+        android:label="AddScreen" />
 
 
 </navigation>

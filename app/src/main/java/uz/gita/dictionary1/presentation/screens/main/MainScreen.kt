@@ -7,11 +7,8 @@ import android.database.Cursor
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import android.widget.ViewSwitcher
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
@@ -48,13 +45,15 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
         initAdapter()
         searchViewSettings()
         drawerBinding.inner.btnChangeLanguage.setOnClickListener {
-            if (System.currentTimeMillis() - time < 1000) return@setOnClickListener
+            if (System.currentTimeMillis() - time < 600) return@setOnClickListener
 
-            drawerBinding.inner.btnChangeLanguage.animate().rotationBy(180f).setDuration(1000)
+            drawerBinding.inner.btnChangeLanguage.animate().rotationBy(90f).setDuration(250).withEndAction {
+                drawerBinding.inner.leftLanguageTv.text = if (isEngToUz) "English" else "O'zbek"
+                drawerBinding.inner.rightLanguageTv.text = if (!isEngToUz) "Ingliz" else "Uzbek"
+                drawerBinding.inner.btnChangeLanguage.animate().rotationBy(90f).setDuration(250)
+            }
+
             isEngToUz = !isEngToUz
-
-            drawerBinding.inner.leftLanguageTv.text = if (isEngToUz) "English" else "O'zbek"
-            drawerBinding.inner.rightLanguageTv.text = if (!isEngToUz) "Ingliz" else "Uzbek"
 
             presenter.loadWords(query = currentQuery ?: "", isEngToUz)
             adapter?.changeLanguage(isEngToUz)
@@ -63,6 +62,12 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
             time = System.currentTimeMillis()
         }
         presenter.loadWords()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        drawerBinding.inner.leftLanguageTv.text = if (isEngToUz) "English" else "O'zbek"
+        drawerBinding.inner.rightLanguageTv.text = if (!isEngToUz) "Ingliz" else "Uzbek"
     }
 
     private fun promptSpeechInput() {
@@ -136,6 +141,13 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
                     drawerBinding.drawerLayout.closeDrawer(GravityCompat.START)
                 }
 
+                R.id.addWord -> {
+                    val direction =
+                        MainScreenDirections.actionMainScreenToAddScreen()
+                    findNavController().navigate(direction)
+                    drawerBinding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
                 R.id.rateUs -> {}
 
                 R.id.aboutUs -> {
@@ -152,11 +164,12 @@ class MainScreen : Fragment(R.layout.screen_main_nav), MainContract.View {
 
     private fun initAdapter() {
         adapter = WordAdapter()
+        adapter!!.changeLanguage(isEngToUz)
 
-        adapter?.setOnItemClickListener {
+        adapter!!.setOnItemClickListener {
             detailsDialog = DetailsDialog()
             detailsDialog?.arguments = bundleOf(Pair("data", it))
-            detailsDialog!!.show(parentFragmentManager, "")
+            detailsDialog!!.show(parentFragmentManager, "${DetailsDialog::class.qualifiedName}")
         }
 
         adapter!!.setOnFavouriteClickListener { id, isChecked ->

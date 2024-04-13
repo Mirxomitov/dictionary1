@@ -2,7 +2,10 @@ package uz.gita.dictionary1.data.sources.dao
 
 import android.database.Cursor
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import uz.gita.dictionary1.data.model.WordData
 import uz.gita.dictionary1.data.sources.entity.WordEntity
 
 @Dao
@@ -10,7 +13,7 @@ interface WordDao {
     @Query("SELECT * FROM dictionary")
     fun getAllWords(): Cursor
 
-    @Query("SELECT * FROM dictionary WHERE english LIKE :query || '%'")
+    @Query("SELECT * FROM dictionary WHERE english LIKE :query || '%' ORDER BY english GLOB '[A-Za-z]*' DESC, Upper(english)")
     fun getEnglishWordsByQuery(query: String): Cursor
 
     @Query("SELECT * FROM dictionary WHERE uzbek LIKE :query || '%' ORDER BY uzbek GLOB '[A-Za-z]*' DESC, Upper(uzbek)")
@@ -27,4 +30,7 @@ interface WordDao {
 
     @Query("UPDATE dictionary SET is_favourite = 0 WHERE id = :id")
     fun removeFromFavourite(id: Long)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addWord(wordEntity: WordEntity)
 }

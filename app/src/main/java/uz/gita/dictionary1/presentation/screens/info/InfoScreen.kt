@@ -1,5 +1,7 @@
 package uz.gita.dictionary1.presentation.screens.info
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,5 +16,20 @@ class InfoScreen : Fragment(R.layout.screen_info) {
         binding.btnBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+
+        binding.telegram.setOnClickListener {
+            openUrl("https://t.me/Mirxomitov")
+        }
+        binding.instagram.setOnClickListener {
+            openUrl("https://www.instagram.com/mirxomitovportfolio")
+        }
+        binding.gmail.setOnClickListener {
+            openUrl("mailto:mirxtohir@gmail.com")
+        }
+    }
+
+    private fun openUrl(link: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(intent)
     }
 }

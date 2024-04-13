@@ -35,9 +35,6 @@ class FavouriteAdapter : RecyclerView.Adapter<FavouriteAdapter.WordViewHolder>()
 
             binding.icFavourite.isVisible = data.isFavourite == 1L
             binding.icNotFavourite.isVisible = data.isFavourite == 0L
-
-            binding
-
         }
 
         init {

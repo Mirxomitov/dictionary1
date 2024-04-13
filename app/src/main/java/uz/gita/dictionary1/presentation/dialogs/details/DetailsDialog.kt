@@ -91,6 +91,13 @@ class DetailsDialog : DialogFragment(R.layout.dialog_details),
                 } else {
                     txtCountable.visibility = View.INVISIBLE
                 }
+
+                if (wordEntity.type.isEmpty()) {
+                    binding.txtType.isVisible = false
+                    binding.txtDetails.visibility = View.INVISIBLE
+                    binding.transcription.isVisible = false
+                    binding.type.isVisible = false
+                }
             }
         }
     }
