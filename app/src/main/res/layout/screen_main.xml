@@ -77,7 +77,7 @@
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
+            android:layout_height="48dp"
             android:layout_marginVertical="8dp"
             android:layout_marginStart="18dp"
             android:layout_marginEnd="72dp"

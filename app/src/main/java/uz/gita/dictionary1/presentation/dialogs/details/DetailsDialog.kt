@@ -5,29 +5,17 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.core.view.isVisible
-import androidx.fragment.app.DialogFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import uz.gita.dictionary1.R
 import uz.gita.dictionary1.data.sources.entity.WordEntity
 import uz.gita.dictionary1.databinding.DialogDetailsBinding
 import java.util.Locale
 
-class DetailsDialog : DialogFragment(R.layout.dialog_details),
+class DetailsDialog : BottomSheetDialogFragment(R.layout.dialog_details),
     TextToSpeech.OnInitListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val width = (resources.displayMetrics.widthPixels * 0.9).toInt()
-        dialog?.window?.setLayout(
-            width,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-
-        setStyle(STYLE_NO_FRAME, R.style.DialogStyle)
-//        dialog?.window?.setBackgroundDrawable(null)
-    }
 
     private val binding by viewBinding(DialogDetailsBinding::bind)
     private var buttonSpeak: ImageView? = null
@@ -36,8 +24,6 @@ class DetailsDialog : DialogFragment(R.layout.dialog_details),
     @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initButtons()
-
-
 
         arguments?.let { args ->
             val data = args.getSerializable("data") as? WordEntity
@@ -53,9 +39,6 @@ class DetailsDialog : DialogFragment(R.layout.dialog_details),
 
     private fun initButtons() {
         buttonSpeak = binding.btnSpeak
-        binding.cancel.setOnClickListener {
-            dismiss()
-        }
         tts = TextToSpeech(requireActivity(), this)
         buttonSpeak!!.setOnClickListener { speakOut() }
     }
@@ -94,9 +77,9 @@ class DetailsDialog : DialogFragment(R.layout.dialog_details),
 
                 if (wordEntity.type.isEmpty()) {
                     binding.txtType.isVisible = false
-                    binding.txtDetails.visibility = View.INVISIBLE
-                    binding.transcription.isVisible = false
-                    binding.type.isVisible = false
+//                    binding.txtDetails.visibility = View.INVISIBLE
+//                    binding.transcription.isVisible = false
+//                    binding.type.isVisible = false
                 }
             }
         }
